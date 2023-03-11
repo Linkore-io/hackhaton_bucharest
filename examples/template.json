@@ -1,46 +1,66 @@
 {
-    "Nodes" : {
-        "Node1" :
-        {
-            "Functions" : ["FunctionDefinition.Function1"],
-            "Input" : 
-            {
-                "input1Name" : "type"
+    "Nodes": {
+        "Node1": {
+            "Functions": [
+                "Function1"
+            ],
+            "Input": {
+                "input1Name": "type"
             },
-            "Output" :
-            {
-                "output1Name" : "type"
+            "Output": {
+                "output1Name": "type"
             }
         }
     },
-    "FunctionDefinition" : {
-        "Function1" :
-        {
-            "Input" : 
-            {
-                "input1" :
-                {
-                    "type" : "type",
-                    "source" : "output1"
+    "Functions": {
+        "Function1": {
+            "Input": {
+                "input1": {
+                    "type": "type",
+                    "source": "output1"
                 }
             },
-            "Output" :
-            {
-                "output1Name" : "type"
+            "Output": {
+                "output1Name": "type"
             },
-            "Source" : "source1"
+            "Source": "source1"
+        },
+        "Function2": {
+            "Input": {
+                "input1": {
+                    "type": "type",
+                    "source": "output1"
+                }
+            },
+            "Output": {
+                "output1Name": "type"
+            },
+            "Source": "source2"
         }
     },
-    "Sources" : {
-        "source1" : {
-            "type" : "standard",
-            "path" : "path"
+    "Sources": {
+        "source1": {
+            "type": "standard",
+            "path": "path"
+        },
+        "source2": {
+            "type": "standard",
+            "path": "path"
         }
     },
-    "Links" : {
-        "Node1.output1Name" : ["Node2.input1Name"]
+    "Links": {
+        "Node1.output1Name": [
+            "Node2.input1Name"
+        ]
     },
     "Threads": {
-        "Thread1" : ["Node1", "Node2"]
+        "Thread1": [
+            "Node1",
+            "Node2"
+        ],
+        "Thread2": [
+            "Node1",
+            "Node2"
+        ]
     }
 }
