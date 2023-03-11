@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+.fake
+node_creator/package-lock.json
