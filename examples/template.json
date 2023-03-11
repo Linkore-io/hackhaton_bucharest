@@ -1,0 +1,46 @@
+{
+    "Nodes" : {
+        "Node1" :
+        {
+            "Functions" : ["FunctionDefinition.Function1"],
+            "Input" : 
+            {
+                "input1Name" : "type"
+            },
+            "Output" :
+            {
+                "output1Name" : "type"
+            }
+        }
+    },
+    "FunctionDefinition" : {
+        "Function1" :
+        {
+            "Input" : 
+            {
+                "input1" :
+                {
+                    "type" : "type",
+                    "source" : "output1"
+                }
+            },
+            "Output" :
+            {
+                "output1Name" : "type"
+            },
+            "Source" : "source1"
+        }
+    },
+    "Sources" : {
+        "source1" : {
+            "type" : "standard",
+            "path" : "path"
+        }
+    },
+    "Links" : {
+        "Node1.output1Name" : ["Node2.input1Name"]
+    },
+    "Threads": {
+        "Thread1" : ["Node1", "Node2"]
+    }
+}
