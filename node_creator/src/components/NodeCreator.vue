@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import { reactive } from 'vue';
 import { markRaw } from 'vue'
 import type { Elements } from '@vue-flow/core'
-import { VueFlow, Node, useVueFlow, Position } from '@vue-flow/core'
+import { VueFlow, Node, useVueFlow, Position, Panel, PanelPosition } from '@vue-flow/core'
 import { Background, BackgroundVariant } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
 import { MiniMap } from '@vue-flow/minimap'
@@ -15,7 +15,7 @@ import "@vue-flow/core/dist/theme-default.css";
 import "@vue-flow/controls/dist/style.css";
 import "@vue-flow/minimap/dist/style.css";
 
-const { nodes, addNodes, edges, addEdges, onConnect, onPaneReady, onNodeDragStop, dimensions, findNode, setNodes, updateNodeInternals } = useVueFlow()
+const { nodes, addNodes, edges, addEdges, onConnect, onPaneReady, onNodeDragStop, dimensions, findNode, setNodes, updateNodeInternals, toObject, setEdges, setTransform } = useVueFlow()
 
 
 const defaultLabel = '-'
@@ -29,6 +29,7 @@ const opts = reactive({
 })
 const updateNode = () => {
   const node = findNode(currentNode.NodeId)
+  console.log(node)
   node.label = opts.label.trim() !== '' ? opts.label : defaultLabel
   updateNodeInternals([node.id])
 }
@@ -67,7 +68,7 @@ const addRandomNode = () => {
     label: `Node: ${nodeId}`,
     type: 'custom',
     template: markRaw(CustomNode),
-    data: {toolbarPosition: Position.Bottom, inputs: new Map<string, string>()},
+    data: {toolbarPosition: Position.Bottom, toolbarVisible: false,  inputs: new Map<string, string>()},
     position: { x: Math.random() * dimensions.value.width, y: Math.random() * dimensions.value.height },
     selectable: true,
     events: {
@@ -76,6 +77,10 @@ const addRandomNode = () => {
         console.log('currentNode', currentNode.NodeId);
         //newNode.data.toolbarVisible = true;
         opts.label = findNode(currentNode.NodeId).label;
+        opts.inputName = ''
+        opts.inputType = ''
+        opts.outputName = ''
+        opts.outputType = ''
       },
 
     },
@@ -91,16 +96,33 @@ onNodeDragStop((node) => {
 })
 
 
+const flowKey = 'example-flow'
+const onSave = () => {
+  localStorage.setItem(flowKey, JSON.stringify(toObject()))
+  console.log("MyJsonOBJ ", JSON.stringify(toObject()))
+}
+
+const onRestore = () => {
+  const flow = JSON.parse(localStorage.getItem(flowKey))
+  console.log(flow)
+  if (flow) {
+    const [x = 0, y = 0] = flow.position
+    setNodes(flow.nodes)
+    setEdges(flow.edges)
+    setTransform({ x, y, zoom: flow.zoom || 0 })
+  }
+}
 </script>
 <template>
   <VueFlow>
     <MiniMap />
     <Controls />
     <Background :variant="BackgroundVariant.Lines" />
-
-    <button type="button" :style="{ position: 'absolute', left: '10px', top: '10px', zIndex: 4 }" @click="addRandomNode">
-      add node
-    </button>
+    <Panel :position="PanelPosition.TopLeft" class="save-restore-controls">
+      <button style="background-color: #33a6b8" @click="onSave">save</button>
+      <!-- <button style="background-color: #113285" @click="onRestore">restore</button> -->
+      <button style="background-color: #6f3381" @click="addRandomNode">add node</button>
+    </Panel>
     <div class="updatenode__controls" id="dynamic_controls">
       <label>label:</label>
       <input v-model="opts.label" @input="updateNode"/>
@@ -123,7 +145,7 @@ onNodeDragStop((node) => {
 </template>
 
 <style>
-.updatenode__controls{position:absolute;right:10px;top:10px;z-index:4;font-size:11px;background-color:#d3d3d3;border-radius:10px;padding:8px}
+.updatenode__controls{position:absolute;right:10px;top:10px;z-index:4;font-size:11px;background-color:#6d6d6d;border-radius:10px;padding:8px}
 .updatenode__controls label{display:blocK}
 .updatenode__controls input{padding:2px;border-radius:5px}
 

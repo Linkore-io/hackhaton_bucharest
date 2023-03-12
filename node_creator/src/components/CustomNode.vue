@@ -10,8 +10,7 @@ defineProps(['data', 'label'])
         <NodeToolbar
             style="display: flex; gap: 0.5rem; align-items: center"
             :is-visible="data.toolbarVisible"
-            :position="data.toolbarPosition"
-        >
+            :position="data.toolbarPosition">
             <button>Add input</button>
             <button>Add Output</button>
         </NodeToolbar>
