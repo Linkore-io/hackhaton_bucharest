@@ -103,12 +103,12 @@
         "source1": {
             "type": "standard",
             "path": "path",
-            "import" : "import sys"
+            "import" : "from examples.example_extern_module import Function1"
         },
         "source2": {
             "type": "standard",
             "path": "path",
-            "import" : "import time"
+            "import" : "from examples.example_extern_module import Function2"
         }
     },
     "Links": [
@@ -126,9 +126,11 @@
         }
     ],
     "Threads": {
-        "Thread1": [
+        "ThreadMircea's": [
             "Node1",
             "Node2"
+        ],
+        "Thread2": [
         ]
     }
 }
