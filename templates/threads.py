@@ -3,22 +3,33 @@ import threading
 import time
 import random
 
-def thread_function(name):
-    """thread_function function that prints the name of the thread and sleeps for a random amount of time"""
-    print("Thread %s: starting", name)
-    time.sleep(random.randint(1, 5))
-    print("Thread %s: finishing", name)
+class MyNode:
+    def __init__(self, name, function):
+        self.name = name
+        self.function = function
+
+    def run(self):
+        print("Node %s: starting", self.name)
+        time.sleep(random.randint(1, 5))
+        print("Node %s: finishing", self.name)
+
+class MyThread(threading.Thread):
+    def __init__(self, name):
+        threading.Thread.__init__(self)
+        self.name = name
+
+    def run(self):
+        print("Thread %s: starting", self.name)
+        time.sleep(random.randint(1, 5))
+        print("Thread %s: finishing", self.name)
 
 if __name__ == "__main__":
-    names = ["John", "Eric", "Jessica"]
-    threads = list()
-    for index in range(3):
-        print("Main    : create and start thread %d.", index)
-        x = threading.Thread(target=thread_function, args=(names[index],))
-        threads.append(x)
-        x.start()
+    threads = []
+    for i in range(5):
+        threads.append(MyThread("Thread-%d" % i))
+        threads[-1].start()
 
-    for index, thread in enumerate(threads):
-        print("Main    : before joining thread %d.", index)
-        thread.join()
-        print("Main    : thread %d done", index)
+    for t in threads:
+        t.join()
+
+    print("Main    : All done.")

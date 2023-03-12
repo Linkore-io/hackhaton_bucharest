@@ -9,15 +9,77 @@
             },
             "Output": {
                 "output1Name": "type"
-            }
+            },
+            "Links": [
+                {
+                    "origin": {
+                        "owner": "Node1",
+                        "type" : "root",
+                        "name": "input1Name"
+                    },
+                    "destination": {
+                        "owner": "Function1",
+                        "type" : "function",
+                        "name":  "input1Name"
+                    }
+                },
+                {
+                    "origin": {
+                        "owner": "Function1",
+                        "type" : "function",
+                        "name": "output1Name"
+                    },
+                    "destination": {
+                        "owner": "Node1",
+                        "type" : "root",
+                        "name":  "output1Name"
+                    }
+                }
+            ]
+        },
+        "Node2": {
+            "Input": {
+                "input1Name": "type"
+            },
+            "Output": {
+                "output1Name": "type"
+            },
+            "Functions": [
+                "Function2"
+            ],
+            "Links": [
+                {
+                    "origin": {
+                        "owner": "Node2",
+                        "type" : "root",
+                        "name": "input1Name"
+                    },
+                    "destination": {
+                        "owner": "Function2",
+                        "type" : "function",
+                        "name":  "input1Name"
+                    }
+                },
+                {
+                    "origin": {
+                        "owner": "Function2",
+                        "type" : "function",
+                        "name": "output1Name"
+                    },
+                    "destination": {
+                        "owner": "Node2",
+                        "type" : "root",
+                        "name":  "output1Name"
+                    }
+                }
+            ]
         }
     },
     "Functions": {
         "Function1": {
             "Input": {
                 "input1": {
-                    "type": "type",
-                    "source": "output1"
+                    "type": "type"
                 }
             },
             "Output": {
@@ -28,8 +90,7 @@
         "Function2": {
             "Input": {
                 "input1": {
-                    "type": "type",
-                    "source": "output1"
+                    "type": "type"
                 }
             },
             "Output": {
@@ -41,24 +102,31 @@
     "Sources": {
         "source1": {
             "type": "standard",
-            "path": "path"
+            "path": "path",
+            "import" : "import sys"
         },
         "source2": {
             "type": "standard",
-            "path": "path"
+            "path": "path",
+            "import" : "import time"
         }
     },
-    "Links": {
-        "Node1.output1Name": [
-            "Node2.input1Name"
-        ]
-    },
+    "Links": [
+        {
+            "origin": {
+                "owner": "Node1",
+                "type" : "root",
+                "name": "output1Name"
+            },
+            "destination": {
+                "owner": "Node2",
+                "type" : "root",
+                "name":  "input1Name"
+            }
+        }
+    ],
     "Threads": {
         "Thread1": [
-            "Node1",
-            "Node2"
-        ],
-        "Thread2": [
             "Node1",
             "Node2"
         ]

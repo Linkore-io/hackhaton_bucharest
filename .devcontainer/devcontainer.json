@@ -39,7 +39,8 @@
 				"donjayamanne.python-environment-manager",
 				"spmeesseman.vscode-taskexplorer",
 				"ms-vscode.hexeditor",
-				"MS-vsliveshare.vsliveshare"
+				"MS-vsliveshare.vsliveshare",
+				"tommorris.mako"
 			]
 		}
 	}

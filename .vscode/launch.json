@@ -12,7 +12,7 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             // "args": ["-h"]
-            "args": ["-i","${workspaceFolder}/examples/template.json","-o","${workspaceFolder}/artifacts"],
+            "args": ["-i","${workspaceFolder}/examples/template.json","-o","${workspaceFolder}/artifacts/prog1.py"],
         }
     ]
 }
